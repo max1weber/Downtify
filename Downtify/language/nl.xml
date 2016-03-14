@@ -1,0 +1,15 @@
+<lang>
+    <title>
+        <error>Oeps, dat ging niet goed</error>
+    </title>
+    <download>
+        <paste_uri>Plak hier je Album, Playlist of Track Link</paste_uri>
+        <done>Download Gereed</done>
+    </download>
+    <error>
+        <no_premium>Error logging in. Wel een  Spotify Premium User?</no_premium>
+        <invalid_uri>Gebruiker 'Copy Spotify URI' en plak de link opnieuw.</invalid_uri>
+        <no_download_selection>Selecteer de nummers die je wilt downloaden</no_download_selection>
+        <connection_lost>Connection lost</connection_lost>
+    </error>
+</lang>
