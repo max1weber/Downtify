@@ -10,6 +10,9 @@ namespace Downtify.GUI
         SpotifyDownloader downloader;
         public static XmlConfiguration configuration;
         public static LanguageXML lang;
+        private int _totalitems = 0;
+        private int _currentcounter = 0;
+        private bool _init = true;
 
         public frmMain()
         {
@@ -42,7 +45,33 @@ namespace Downtify.GUI
                 return;
             }
 
-            downloader.Download(((TrackItem)listBoxTracks.SelectedItems[0]).Track);
+
+            var selecteditem = ((TrackItem)listBoxTracks.SelectedItems[0]);
+
+            if (selecteditem != null)
+            {
+                _currentcounter += 1;
+
+                var itemfullename = selecteditem.ToString();
+
+                SetupStatusBar(_currentcounter, itemfullename);
+                try
+                {
+                    downloader.LogMessage(LogLevel.Debug, "Trying getting : " + itemfullename);
+
+                    downloader.Download(selecteditem.Track);
+                }
+                catch (Exception ex)
+                {
+                    string msg = string.Format("Failed getting item {0} /r/n cause: {1}", itemfullename, ex.Message);
+                    downloader.LogMessage(LogLevel.Error, msg);
+                }
+
+
+
+
+            }
+            
         }
 
         private void downloader_OnDownloadProgress(int value)
@@ -199,6 +228,13 @@ namespace Downtify.GUI
                 return;
             }
 
+            if (_init)
+            {
+
+                _totalitems = listBoxTracks.SelectedItems.Count;
+                _init = false;
+
+            }
             EnableControls(false);
             
 
@@ -206,8 +242,11 @@ namespace Downtify.GUI
 
                     if (selecteditem != null)
                     {
-
+                        _currentcounter += 1;
+                        
                         var itemfullename = selecteditem.ToString();
+
+                        SetupStatusBar(_currentcounter, itemfullename);
                         try
                         {
                             downloader.LogMessage(LogLevel.Debug, "Trying getting : " + itemfullename);
@@ -225,7 +264,17 @@ namespace Downtify.GUI
 
                     }
                 }
-            }
+
+        private void SetupStatusBar(int _currentcounter, string itemfullename)
+        {
+            var counterstring = string.Format("Downloading number {0} of {1}", _currentcounter.ToString(), _totalitems.ToString());
+            var songdownload = string.Format("Downloading song: {0}", itemfullename);
+
+            tsCounterText.Text = counterstring;
+            tsStatusText.Text = songdownload;
+
+        }
+    }
            
         }
     

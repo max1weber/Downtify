@@ -326,11 +326,11 @@ namespace Downtify
 
         private string GetTargetFilename(Track track)
         {
-            var artist = GetTrackArtistsNames(track);
+           // var artist = GetTrackArtistsNames(track);
 
-            var dir = Path.Combine(downloadPath, escape(artist));
+            var dir = Path.Combine(downloadPath);
 
-            string result = dir + escape(GetTrackFullName(track)) + ".mp3";
+            string result = downloadPath + escape(GetTrackFullName(track)) + ".mp3";
             return result;
 
 
