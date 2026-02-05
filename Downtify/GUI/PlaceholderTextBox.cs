@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -13,6 +14,7 @@ namespace Downtify.GUI
         static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, uint wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
 
         private string placeholder;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string Placeholder
         {
             get
